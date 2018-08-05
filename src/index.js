@@ -137,7 +137,7 @@ function parse(data) {
  * yarn add @zakkudo/query-string
  * ```
  *
- * @example
+ * @example <caption>Initializing with an object</caption>
  * import QueryString from '@zakkudo/query-string';
  *
  * const query = new QueryString({
@@ -151,7 +151,17 @@ function parse(data) {
  *
  * const url = `http://example${query}` //Automatically serializes correctly
  *
- * @example <caption>Parsing an invalid query string</caption>
+ * @example <caption>Initializing with a URL</caption>
+ * import QueryString from '@zakkudo/query-string';
+ *
+ * const query = new QueryString('http://example?page=3&title=awesomeness');
+ *
+ * delete query.page;
+ *
+ * String(query) // '?title=awesomeness'
+ * query.toString() // '?title=awesomeness'
+ *
+ * @example <caption>Parsing an invalid query string with duplicate ?</caption>
  * import QueryString from '@zakkudo/query-string';
  * import QueryStringError from '@zakkudo/query-string/QueryStringError';
  *
@@ -160,6 +170,8 @@ function parse(data) {
  * } catch(e) {
  *     if (e instanceof QueryStringError) {
  *         console.error(e.message); // Trying to add duplicate query param when already exists
+ *     } else {
+ *         throw e;
  *     }
  * }
  *
@@ -168,8 +180,8 @@ function parse(data) {
  */
 export default class QueryString {
     /**
-     * @param {String|Object|QueryString} data - Initial data.  A url string
-     * will be parsed, and Object/QueryString instances will be copied.
+     * @param {String|Object|QueryString} data - Initial data.  A url `String`
+     * will be parsed, and `Object`/`QueryString` instances will be copied.
     */
     constructor(data) {
         Object.assign(this, parse(data));
@@ -178,7 +190,7 @@ export default class QueryString {
     /**
      * Converts the object into it's serialized query string representation
      * that can be used in a url.
-     * @return {String} The serialized representation of the QueryString.  It
+     * @return {String} The serialized representation of the `QueryString`.  It
      * will be an empty string if there are no params to serialize.
     */
     toString() {

@@ -14,5 +14,3 @@ export default class QueryStringError extends Error {
     }
 }
 
-//Fix for jest coverage
-QueryStringError.displayName = 'QueryStringError';

@@ -22,7 +22,7 @@ yarn add @zakkudo/query-string
 
 - <code>QueryStringError</code> On issues during serialization or construction
 
-**Example**  
+**Example** *(Initializing with an object)*  
 ```js
 import QueryString from '@zakkudo/query-string';
 
@@ -37,7 +37,18 @@ query.toString() // '?page=3&title=awesomeness&complex=%7B%22test%22%3A%22value%
 
 const url = `http://example${query}` //Automatically serializes correctly
 ```
-**Example** *(Parsing an invalid query string)*  
+**Example** *(Initializing with a URL)*  
+```js
+import QueryString from '@zakkudo/query-string';
+
+const query = new QueryString('http://example?page=3&title=awesomeness');
+
+delete query.page;
+
+String(query) // '?title=awesomeness'
+query.toString() // '?title=awesomeness'
+```
+**Example** *(Parsing an invalid query string with duplicate ?)*  
 ```js
 import QueryString from '@zakkudo/query-string';
 import QueryStringError from '@zakkudo/query-string/QueryStringError';
@@ -47,6 +58,8 @@ const query = new QueryString('http://invalid.com/?first=1?second=2')
 } catch(e) {
     if (e instanceof QueryStringError) {
         console.error(e.message); // Trying to add duplicate query param when already exists
+    } else {
+        throw e;
     }
 }
 ```
@@ -66,7 +79,7 @@ const query = new QueryString('http://invalid.com/?first=1?second=2')
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code>String</code> \| <code>Object</code> \| <code>QueryString</code> | Initial data.  A url string will be parsed, and Object/QueryString instances will be copied. |
+| data | <code>String</code> \| <code>Object</code> \| <code>QueryString</code> | Initial data.  A url `String` will be parsed, and `Object`/`QueryString` instances will be copied. |
 
 <a name="module_QueryString--module.exports+toString"></a>
 
@@ -75,5 +88,5 @@ Converts the object into it's serialized query string representation
 that can be used in a url.
 
 **Kind**: instance method of [<code>module.exports</code>](#exp_module_QueryString--module.exports)  
-**Returns**: <code>String</code> - The serialized representation of the QueryString.  It
+**Returns**: <code>String</code> - The serialized representation of the `QueryString`.  It
 will be an empty string if there are no params to serialize.  

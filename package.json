@@ -1,6 +1,6 @@
 {
   "name": "@zakkudo/query-string",
-  "version": "0.0.7",
+  "version": "0.0.1",
   "description": "Make working with url query-strings enjoyable.",
   "keywords": [
     "redux"
