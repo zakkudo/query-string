@@ -188,7 +188,7 @@ export default class QueryString {
     }
 
     /**
-     * Converts the object into it's serialized query string representation
+     * Converts the object into its serialized query string representation
      * that can be used in a url.
      * @return {String} The serialized representation of the `QueryString`.  It
      * will be an empty string if there are no params to serialize.

@@ -3,7 +3,8 @@
   "version": "0.0.2",
   "description": "Make working with url query-strings enjoyable.",
   "keywords": [
-    "redux"
+    "query-string",
+    "url"
   ],
   "main": "build/index.js",
   "files": [
