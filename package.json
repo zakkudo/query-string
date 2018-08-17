@@ -6,9 +6,9 @@
     "query-string",
     "url"
   ],
-  "main": "build/index.js",
+  "main": "index.js",
   "files": [
-    "build/**/*"
+    "*"
   ],
   "repository": "github:zakkudo/query-string",
   "license": "BSD-3-Clause",

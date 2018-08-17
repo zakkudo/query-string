@@ -7,8 +7,9 @@ describe('QueryStringError', () => {
             'test url'
         );
 
-        //Jest coverage breaks this
-        //expect(String(error)).toEqual('QueryStringError: test message <test url>');
+        expect(QueryStringError.prototype.toString.apply(error)).toEqual(
+            'QueryStringError: test message <test url>'
+        );
     });
 });
 

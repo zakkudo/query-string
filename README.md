@@ -84,7 +84,7 @@ const query = new QueryString('http://invalid.com/?first=1?second=2')
 <a name="module_QueryString--module.exports+toString"></a>
 
 #### module.exports.toString() ⇒ <code>String</code>
-Converts the object into it's serialized query string representation
+Converts the object into its serialized query string representation
 that can be used in a url.
 
 **Kind**: instance method of [<code>module.exports</code>](#exp_module_QueryString--module.exports)  
