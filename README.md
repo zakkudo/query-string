@@ -3,6 +3,9 @@
 ## QueryString
 Make working with url query-strings enjoyable.
 
+[![Build Status](https://travis-ci.org/zakkudo/query-string.svg?branch=master)](https://travis-ci.org/zakkudo/query-string)
+[![Coverage Status](https://coveralls.io/repos/github/zakkudo/query-string/badge.svg?branch=master)](https://coveralls.io/github/zakkudo/query-string?branch=master)
+
 Why use this?
 
 - Consistancy with simplicity
