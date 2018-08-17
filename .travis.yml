@@ -9,4 +9,5 @@ install:
     - yarn add codecov
 script:
   - yarn cover
+  - cat coverage/lcov.info | ./node_modules/.bin/coveralls
   - ./node_modules/.bin/codecov
