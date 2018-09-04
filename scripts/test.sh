@@ -1,3 +1,4 @@
 #!/bin/sh
 
-./node_modules/.bin/jest
+yarn clean
+./node_modules/.bin/jest --runInBand

@@ -1,10 +1,21 @@
-<a name="module_QueryString"></a>
+<a name="module_@zakkudo/query-string"></a>
 
-## QueryString
+## @zakkudo/query-string
 Make working with url query-strings enjoyable.
 
-[![Build Status](https://travis-ci.org/zakkudo/query-string.svg?branch=master)](https://travis-ci.org/zakkudo/query-string)
-[![Coverage Status](https://coveralls.io/repos/github/zakkudo/query-string/badge.svg?branch=master)](https://coveralls.io/github/zakkudo/query-string?branch=master)
+<p>
+<a href="https://travis-ci.org/zakkudo/query-string">
+    <img src="https://travis-ci.org/zakkudo/query-string.svg?branch=master"
+         alt="Build Status" /></a>
+<a href="https://coveralls.io/github/zakkudo/query-string?branch=master">
+    <img src="https://coveralls.io/repos/github/zakkudo/query-string/badge.svg?branch=master"
+         alt="Coverage Status" /></a>
+<a href="https://snyk.io/test/github/zakkudo/query-string">
+    <img src="https://snyk.io/test/github/zakkudo/query-string/badge.svg"
+         alt="Known Vulnerabilities"
+         data-canonical-src="https://snyk.io/test/github/zakkudo/query-string"
+         style="max-width:100%;" /></a>
+</p>
 
 Why use this?
 
@@ -23,7 +34,7 @@ yarn add @zakkudo/query-string
 
 **Throws**:
 
-- <code>QueryStringError</code> On issues during serialization or construction
+- [<code>@zakkudo/query-string/QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError) On issues during serialization or construction
 
 **Example** *(Initializing with an object)*  
 ```js
@@ -57,7 +68,7 @@ import QueryString from '@zakkudo/query-string';
 import QueryStringError from '@zakkudo/query-string/QueryStringError';
 
 try {
-const query = new QueryString('http://invalid.com/?first=1?second=2')
+    const query = new QueryString('http://invalid.com/?first=1?second=2')
 } catch(e) {
     if (e instanceof QueryStringError) {
         console.error(e.message); // Trying to add duplicate query param when already exists
@@ -67,29 +78,37 @@ const query = new QueryString('http://invalid.com/?first=1?second=2')
 }
 ```
 
-* [QueryString](#module_QueryString)
-    * [module.exports](#exp_module_QueryString--module.exports) ⏏
-        * [new module.exports(data)](#new_module_QueryString--module.exports_new)
-        * [.toString()](#module_QueryString--module.exports+toString) ⇒ <code>String</code>
+* [@zakkudo/query-string](#module_@zakkudo/query-string)
+    * [QueryString](#exp_module_@zakkudo/query-string--QueryString) ⏏
+        * [new QueryString(data)](#new_module_@zakkudo/query-string--QueryString_new)
+        * [.toString()](#module_@zakkudo/query-string--QueryString+toString) ⇒ <code>String</code>
 
-<a name="exp_module_QueryString--module.exports"></a>
+<a name="exp_module_@zakkudo/query-string--QueryString"></a>
 
-### module.exports ⏏
+### QueryString ⏏
 **Kind**: Exported class  
-<a name="new_module_QueryString--module.exports_new"></a>
+<a name="new_module_@zakkudo/query-string--QueryString_new"></a>
 
-#### new module.exports(data)
+#### new QueryString(data)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>String</code> \| <code>Object</code> \| <code>QueryString</code> | Initial data.  A url `String` will be parsed, and `Object`/`QueryString` instances will be copied. |
 
-<a name="module_QueryString--module.exports+toString"></a>
+<a name="module_@zakkudo/query-string--QueryString+toString"></a>
 
-#### module.exports.toString() ⇒ <code>String</code>
+#### queryString.toString() ⇒ <code>String</code>
 Converts the object into its serialized query string representation
 that can be used in a url.
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_QueryString--module.exports)  
+**Kind**: instance method of [<code>QueryString</code>](#exp_module_@zakkudo/query-string--QueryString)  
 **Returns**: <code>String</code> - The serialized representation of the `QueryString`.  It
 will be an empty string if there are no params to serialize.  
+<a name="module_@zakkudo/query-string/QueryStringError"></a>
+
+## @zakkudo/query-string/QueryStringError
+<a name="exp_module_@zakkudo/query-string/QueryStringError--QueryStringError"></a>
+
+### QueryStringError ⇐ <code>Error</code> ⏏
+**Kind**: Exported class  
+**Extends**: <code>Error</code>  

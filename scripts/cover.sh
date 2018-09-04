@@ -1,3 +1,4 @@
 #!/bin/sh
 
-./node_modules/.bin/jest --coverage
+yarn clean
+./node_modules/.bin/jest --coverage --runInBand

@@ -3,3 +3,4 @@
 set -e
 
 ./node_modules/.bin/babel src --out-dir build --source-maps inline --ignore "src/test.js" --ignore "src/*.test.js"
+cp package.json build/package.json
