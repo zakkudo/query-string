@@ -1,5 +1,7 @@
 /**
+ * <p>
  * Make working with url query-strings enjoyable.
+ * </p>
  *
  * <p>
  * <a href="https://travis-ci.org/zakkudo/query-string">
@@ -15,7 +17,7 @@
  *          style="max-width:100%;" /></a>
  * </p>
  *
- * Why use this?
+ * <h3>Why use this?</h3>
  *
  * - Consistancy with simplicity
  * - The instance acts like a plain-old-object
@@ -24,11 +26,16 @@
  *   Update the properties after initialization and the serialization will reflect the updates
  * - Complex params are automatically serialized and deserialized from json
  *
- * Install with:
+ * <h3>Install</h3>
  *
  * ```console
+ * npm install @zakkudo/query-string
+ * ```
+ *
+ * ``` console
  * yarn add @zakkudo/query-string
  * ```
+ *
  *
  * @example <caption>Initializing with an object</caption>
  * import QueryString from '@zakkudo/query-string';
@@ -54,7 +61,7 @@
  * String(query) // '?title=awesomeness'
  * query.toString() // '?title=awesomeness'
  *
- * @example <caption>Parsing an invalid query string with duplicate ?</caption>
+ * @example <caption>Parsing an invalid query string with duplicate '?'</caption>
  * import QueryString from '@zakkudo/query-string';
  * import QueryStringError from '@zakkudo/query-string/QueryStringError';
  *
@@ -68,8 +75,8 @@
  *     }
  * }
  *
- * @throws {module:@zakkudo/query-string/QueryStringError} On issues during serialization or construction
-* @module @zakkudo/query-string
+ *
+ * @module @zakkudo/query-string
  */
 
 import getTypeName from './getTypeName';
@@ -107,7 +114,7 @@ function decodeValue(value) {
         return JSON.parse(decoded);
     } catch (e) {
         return decoded;
-    }
+    gg}
 }
 
 /**
@@ -193,8 +200,9 @@ function parse(data) {
     throw new TypeError(`${getTypeName(data)} isn't an accepted constructor type`);
 }
 
+
 /**
- * @alias module:@zakkudo/query-string
+ * @throws {module:@zakkudo/query-string/QueryStringError~QueryStringError} On issues parsing or serializing the configuration
  */
 class QueryString {
     /**

@@ -3,22 +3,26 @@
  */
 
 /**
- * @alias module:@zakkudo/query-string/QueryStringError
+ * Error class used by QueryString for raising errors
+ * generated during parsing or serialization.
  * @extends Error
- * Generates an error representing a problem.
  */
 class QueryStringError extends Error {
     /**
-     * @param {String} message - The error string
-     * @param {String} url - The url of the error
+     * @param {String} message - A message describing the reason for the error.
+     * @param {String} url - The related url fragment that generated the error.
      */
     constructor(message, url) {
         super(`${message} <${url}>`);
+
+        /**
+         * The related url fragment that generated the error
+         */
         this.url = url;
     }
 
     /**
-     * Stringifies the error
+     * @private
      */
     toString() {
         return `QueryStringError: ${this.message}`;
