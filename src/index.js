@@ -29,13 +29,14 @@
  * <h3>Install</h3>
  *
  * ```console
+ * # Install using npm
  * npm install @zakkudo/query-string
  * ```
  *
  * ``` console
+ * # Install using yarn
  * yarn add @zakkudo/query-string
  * ```
- *
  *
  * @example <caption>Initializing with an object</caption>
  * import QueryString from '@zakkudo/query-string';
@@ -114,7 +115,7 @@ function decodeValue(value) {
         return JSON.parse(decoded);
     } catch (e) {
         return decoded;
-    gg}
+    }
 }
 
 /**

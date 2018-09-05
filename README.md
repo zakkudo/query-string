@@ -31,10 +31,12 @@ Make working with url query-strings enjoyable.
 <h3>Install</h3>
 
 ```console
+# Install using npm
 npm install @zakkudo/query-string
 ```
 
 ``` console
+# Install using yarn
 yarn add @zakkudo/query-string
 ```
 
@@ -80,19 +82,10 @@ try {
 }
 ```
 
-* [@zakkudo/query-string](#module_@zakkudo/query-string)
-    * [~QueryString](#module_@zakkudo/query-string..QueryString)
-        * [new QueryString(data)](#new_module_@zakkudo/query-string..QueryString_new)
-        * [.toString()](#module_@zakkudo/query-string..QueryString+toString) ⇒ <code>String</code>
-
 <a name="module_@zakkudo/query-string..QueryString"></a>
 
-## @zakkudo/query-string~QueryString
-**Kind**: inner class of [<code>@zakkudo/query-string</code>](#module_@zakkudo/query-string)  
-
-* [~QueryString](#module_@zakkudo/query-string..QueryString)
-    * [new QueryString(data)](#new_module_@zakkudo/query-string..QueryString_new)
-    * [.toString()](#module_@zakkudo/query-string..QueryString+toString) ⇒ <code>String</code>
+## @zakkudo/query-string~QueryString ⏏
+**Kind**: Exported class [<code>@zakkudo/query-string</code>](#module_@zakkudo/query-string)  
 
 <a name="new_module_@zakkudo/query-string..QueryString_new"></a>
 
@@ -100,7 +93,6 @@ try {
 **Throws**:
 
 - [<code>QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError..QueryStringError) On issues parsing or serializing the configuration
-
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -117,25 +109,14 @@ that can be used in a url.
 will be an empty string if there are no params to serialize.  
 <a name="module_@zakkudo/query-string/QueryStringError"></a>
 
-# @zakkudo/query-string/QueryStringError
-
-* [@zakkudo/query-string/QueryStringError](#module_@zakkudo/query-string/QueryStringError)
-    * [~QueryStringError](#module_@zakkudo/query-string/QueryStringError..QueryStringError) ⇐ <code>Error</code>
-        * [new QueryStringError(message, url)](#new_module_@zakkudo/query-string/QueryStringError..QueryStringError_new)
-        * [.url](#module_@zakkudo/query-string/QueryStringError..QueryStringError+url)
-
 <a name="module_@zakkudo/query-string/QueryStringError..QueryStringError"></a>
 
-## @zakkudo/query-string/QueryStringError~QueryStringError ⇐ <code>Error</code>
+## @zakkudo/query-string/QueryStringError~QueryStringError ⇐ <code>Error</code> ⏏
 Error class used by QueryString for raising errors
 generated during parsing or serialization.
 
-**Kind**: inner class of [<code>@zakkudo/query-string/QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError)  
+**Kind**: Exported class [<code>@zakkudo/query-string/QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError)  
 **Extends**: <code>Error</code>  
-
-* [~QueryStringError](#module_@zakkudo/query-string/QueryStringError..QueryStringError) ⇐ <code>Error</code>
-    * [new QueryStringError(message, url)](#new_module_@zakkudo/query-string/QueryStringError..QueryStringError_new)
-    * [.url](#module_@zakkudo/query-string/QueryStringError..QueryStringError+url)
 
 <a name="new_module_@zakkudo/query-string/QueryStringError..QueryStringError_new"></a>
 
@@ -144,11 +125,11 @@ generated during parsing or serialization.
 | Param | Type | Description |
 | --- | --- | --- |
 | message | <code>String</code> | A message describing the reason for the error. |
-| url | <code>String</code> | The related url fragment that generated the error. |
+| url | <code>String</code> | The related url fragment when the error was generated |
 
 <a name="module_@zakkudo/query-string/QueryStringError..QueryStringError+url"></a>
 
 ### queryStringError.url
-The related url fragment that generated the error
+The related url fragment when the error was generated
 
 **Kind**: instance property of [<code>QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError..QueryStringError)  
