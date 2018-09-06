@@ -2,12 +2,21 @@
 
 set -e
 
+CURRENT_DIR=$(pwd)
 PROJECT_DIR=$(git rev-parse --show-toplevel)
 BIN_DIR=$(npm bin)
 JSDOC="$BIN_DIR/jsdoc"
+OPTIONS="--module-index-format none --global-index-format none --example-lang js --heading-depth 3"
 
-$JSDOC -c $PROJECT_DIR/jsdoc.config.json "$@"
-./node_modules/.bin/jsdoc2md src/index.js src/QueryStringError.js --module-index-format none --global-index-format none --example-lang js --heading-depth 1 > README.md
-./scripts/postProcessReadme.js README.md
+cd $PROJECT_DIR
 
+$JSDOC -c jsdoc.config.json "$@"
+cat src/README.md > README.md
 
+echo "" >> README.md
+echo "## API" >> README.md
+echo "" >> README.md
+
+node_modules/.bin/jsdoc2md src/index.js src/QueryStringError.js $OPTIONS >> README.md
+
+scripts/postProcessReadme.js README.md
