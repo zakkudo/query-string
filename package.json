@@ -1,6 +1,6 @@
 {
   "name": "@zakkudo/query-string",
-  "version": "0.0.3",
+  "version": "0.0.9",
   "description": "Make working with url query-strings enjoyable.",
   "keywords": [
     "query-string",
@@ -10,8 +10,8 @@
   "files": [
     "*"
   ],
-  "engines" : {
-      "node" : ">=6.0.0"
+  "engines": {
+    "node": ">=6.0.0"
   },
   "repository": "github:zakkudo/query-string",
   "license": "BSD-3-Clause",
