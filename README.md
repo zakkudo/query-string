@@ -82,7 +82,9 @@ try {
 <a name="module_@zakkudo/query-string..QueryString"></a>
 
 ### @zakkudo/query-string~QueryString ⏏
+
 **Kind**: Exported class
+
 <a name="new_module_@zakkudo/query-string..QueryString_new"></a>
 
 #### new QueryString(data)
@@ -103,6 +105,7 @@ Error class used by QueryString for raising errors
 generated during parsing or serialization.
 
 **Kind**: Exported class
+
 **Extends**: <code>Error</code>  
 
 * [~QueryStringError](#module_@zakkudo/query-string/QueryStringError..QueryStringError) ⇐ <code>Error</code>

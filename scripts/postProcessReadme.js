@@ -28,7 +28,7 @@ const newContents = lines.filter((l) => {
     }
 
     if (l.startsWith(innerClassOfPrefix)) {
-        return '**Kind**: Exported class';
+        return '\n**Kind**: Exported class\n';
     }
 
     return l;
