@@ -5,6 +5,8 @@ Make working with url query-strings enjoyable.
 [![Build Status](https://travis-ci.org/zakkudo/query-string.svg?branch=master)](https://travis-ci.org/zakkudo/query-string)
 [![Coverage Status](https://coveralls.io/repos/github/zakkudo/query-string/badge.svg?branch=master)](https://coveralls.io/github/zakkudo/query-string?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/zakkudo/query-string/badge.svg)](https://snyk.io/test/github/zakkudo/query-string)
+[![Node](https://img.shields.io/node/v/@zakkudo/query-string.svg)](https://nodejs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Why use this?
 
