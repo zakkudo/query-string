@@ -2,6 +2,8 @@
 
 set -e
 
+export NODE_ENV="build"
+
 CURRENT_DIR=$(pwd)
 PROJECT_DIR=$(git rev-parse --show-toplevel)
 
