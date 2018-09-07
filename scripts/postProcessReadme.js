@@ -8,32 +8,42 @@ const contents = String(fs.readFileSync(filename));
 const lines = contents.split('\n');
 
 let isIndex = false;
+let isApiSection = false;
 
-const newContents = lines.filter((l, index) => {
-    if (l.startsWith('# ') && lines[index + 2] && lines[index + 2].startsWith('* [')) {
-        isIndex = true;
-    }
-
-    if (l.startsWith('* [')) {
+const newContents = lines.filter((l) => {
+    if (l.startsWith('* [@')) {
         isIndex = true;
     } else if (l === '') {
         isIndex = false;
     }
 
     return !isIndex;
+}).filter((l) => {
+     return !l.startsWith('### @');
 }).map((l, index, lines) => {
     const innerClassOfPrefix = '**Kind**: inner class of';
 
-    if (l.startsWith('## ')) {
+    if (l.startsWith('#### @')) {
         return l + ' ⏏';
     }
 
     if (l.startsWith(innerClassOfPrefix)) {
-        return '**Kind**: Exported class' + l.slice(innerClassOfPrefix.length);
+        return '**Kind**: Exported class';
     }
 
     return l;
-}).join('\n').replace(/\n\n+/gm, '\n\n');;
+}).map((l, index, lines) => {
+    if (l === '## API') {
+        isApiSection = true;
+        return l;
+    }
+
+    if (isApiSection && l.startsWith('##')) {
+        return l.slice(1);
+    }
+
+    return l;
+}).join('\n').replace(/\n\n+/gm, '\n\n').replace('&commat;', '@').replace('&sol;', '/');
 
 fs.writeFileSync(filename, newContents);
 

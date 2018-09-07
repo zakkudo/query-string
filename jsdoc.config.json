@@ -16,6 +16,7 @@
     "opts": {
         "destination": "./documentation",
         "recurse": true,
-        "encoding": "utf8"
+        "encoding": "utf8",
+        "readme": "src/README.md"
     }
 }
