@@ -89,14 +89,17 @@ try {
 
 <a name="new_module_@zakkudo/query-string..QueryString_new"></a>
 
-#### new QueryString(data)
+#### new QueryString([data], [options])
 **Throws**:
 
-- [<code>QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError..QueryStringError) On issues parsing or serializing the configuration
+- [<code>QueryStringError</code>](#module_@zakkudo/query-string/QueryStringError..QueryStringError) On
+issues parsing or serializing the configuration
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>String</code> \| <code>Object</code> \| <code>QueryString</code> | Initial data.  A url `String` will be parsed, and `Object`/`QueryString` instances will be copied. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [data] | <code>String</code> \| <code>Object</code> \| <code>QueryString</code> |  | Initial data.  A url `String` will be parsed, and `Object`/`QueryString` instances will be copied. |
+| [options] | <code>Object</code> |  | Modifiers for how the query string object is contructed |
+| [options.unsafe] | <code>Boolean</code> | <code>false</code> | Disable url escaping of key/value pairs. Useful for servers that use unsafe characters as delimiters |
 
 <a name="module_@zakkudo/query-string/QueryStringError"></a>
 

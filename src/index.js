@@ -26,63 +26,76 @@ function getTypeName(data) {
 /**
  * @private
  */
-function decodeKey(key) {
+function decode(key) {
     return decodeURIComponent(key);
 }
 
 /**
  * @private
  */
-function encodeKey(key) {
-    return encodeURIComponent(key);
-}
-
-/**
- * @private
- */
-function decodeValue(value) {
-    const decoded = decodeURIComponent(value);
-
-    try {
-        return JSON.parse(decoded);
-    } catch (e) {
-        return decoded;
+function encode(key) {
+    if (typeof key === 'string') {
+        return encodeURIComponent(key);
     }
 }
 
 /**
  * @private
  */
-function encodePair([key, value]) {
-    return [encodeKey(key), encodeValue(value)];
+function deserialize(value) {
+    try {
+        return JSON.parse(value);
+    } catch (e) {
+        return value;
+    }
+}
+
+/**
+ * @private
+ */
+function serialize(value) {
+    if (typeof value === 'string') {
+        return value;
+    } else if (value === undefined) {
+        return undefined;
+    }
+
+    return JSON.stringify(value);
+}
+
+/**
+ * @private
+ */
+function safeEncodePair([key, value]) {
+    return [encode(key), encode(serialize(value))];
+}
+
+/**
+ * @private
+ */
+function safeDecodePair([key, value]) {
+    return [decode(key), deserialize(decode(value))];
+}
+
+/**
+ * @private
+ */
+function unsafeEncodePair([key, value]) {
+    return [key, serialize(value)];
+}
+
+/**
+ * @private
+ */
+function unsafeDecodePair([key, value]) {
+    return [key, deserialize(value)];
 }
 
 /**
  * @private
  */
 function isValidPair([key, value]) {
-    return value !== undefined;
-}
-
-/**
- * @private
- */
-function decodePair([key, value]) {
-    return [decodeKey(key), decodeValue(value)];
-}
-
-/**
- * @private
- * @param {String} value - The value to serialize
- */
-function encodeValue(value) {
-    if (typeof value === 'string') {
-        return encodeURIComponent(value);
-    } else if (value === undefined) {
-        return undefined;
-    }
-
-    return encodeURIComponent(JSON.stringify(value));
+    return key !== undefined && value !== undefined;
 }
 
 /**
@@ -90,7 +103,7 @@ function encodeValue(value) {
  * @param {String} data - The data to parse
  * @return {Object} The parsed data
  */
-function parseString(data) {
+function parseString(data, decoder) {
     if (data.indexOf('?') !== data.lastIndexOf('?')) {
         throw createDuplicateQueryError(data);
     }
@@ -99,7 +112,7 @@ function parseString(data) {
         .split(/[;&]/g)
         .map((p) => p.split('='))
         .filter(isValidPair)
-        .map(decodePair);
+        .map(decoder);
 }
 
 /**
@@ -107,11 +120,11 @@ function parseString(data) {
  * @param {*} data - The data to parse
  * @return {Object} The parsed data
  */
-function parse(data) {
+function parse(data, decoder) {
     if (data === undefined) {
         return {};
     } if (typeof data === 'string') {
-        const parts = parseString(data);
+        const parts = parseString(data, decoder);
 
         return parts.reduce((accumulator, [key, value]) => {
             if (!accumulator.hasOwnProperty(key)) {
@@ -134,18 +147,6 @@ function parse(data) {
 }
 
 
-/**
- * @throws {module:@zakkudo/query-string/QueryStringError~QueryStringError} On issues parsing or serializing the configuration
- */
-class QueryString {
-    /**
-     * @param {String|Object|QueryString} data - Initial data.  A url `String`
-     * will be parsed, and `Object`/`QueryString` instances will be copied.
-    */
-    constructor(data) {
-        Object.assign(this, parse(data));
-    }
-
     /**
      * Converts the object into its serialized query string representation
      * that can be used in a url.
@@ -153,25 +154,66 @@ class QueryString {
      * @return {String} The serialized representation of the `QueryString`.  It
      * will be an empty string if there are no params to serialize.
     */
-    toString() {
-        const keys = Object.keys(this);
-        const pairs = keys.reduce((accumulator, k) => {
-            const value = this[k];
+function toString(encoder) {
+    const keys = Object.keys(this);
+    const pairs = keys.reduce((accumulator, k) => {
+        const value = this[k];
 
-            if (Array.isArray(value)) {
-                return accumulator.concat(value.map((v) => [k, v]));
-            }
-
-            return accumulator.concat([[k, value]]);
-        }, []).map(encodePair).filter(isValidPair);
-        const serialized = pairs.map((p) => p.join('=')).join('&');
-
-        if (serialized.length) {
-            return `?${serialized}`;
+        if (Array.isArray(value)) {
+            return accumulator.concat(value.map((v) => [k, v]));
         }
 
-        return '';
+        return accumulator.concat([[k, value]]);
+    }, []).map(encoder).filter(isValidPair);
+    const serialized = pairs.map((p) => p.join('=')).join('&');
+
+    if (serialized.length) {
+        return `?${serialized}`;
+    }
+
+    return '';
+}
+
+/**
+ * @throws {module:@zakkudo/query-string/QueryStringError~QueryStringError} On
+ * issues parsing or serializing the configuration
+ */
+class QueryString {
+    /**
+     * @param {String|Object|QueryString} [data] - Initial data.  A url `String`
+     * will be parsed, and `Object`/`QueryString` instances will be copied.
+     * @param {Object} [options] - Modifiers for how the query string object is contructed
+     * @param {Boolean} [options.unsafe = false] - Disable url escaping of key/value pairs. Useful for servers that use unsafe characters as delimiters
+    */
+    constructor(data, options = {}) {
+        if (options.unsafe) {
+            return new UnsafeQueryString(data);
+        }
+
+        Object.assign(this, parse(data, safeDecodePair));
+    }
+
+    toString() {
+        return toString.call(this, safeEncodePair);
+    }
+}
+
+/**
+ * @private
+ */
+class UnsafeQueryString extends QueryString {
+    /**
+     * @private
+    */
+    constructor(data) {
+        super();
+        Object.assign(this, parse(data, unsafeDecodePair));
+    }
+
+    toString() {
+        return toString.call(this, unsafeEncodePair);
     }
 }
 
 export default QueryString;
+
