@@ -183,10 +183,11 @@ class QueryString {
      * @param {String|Object|QueryString} [data] - Initial data.  A url `String`
      * will be parsed, and `Object`/`QueryString` instances will be copied.
      * @param {Object} [options] - Modifiers for how the query string object is contructed
-     * @param {Boolean} [options.unsafe = false] - Disable url escaping of key/value pairs. Useful for servers that use unsafe characters as delimiters
+     * @param {Boolean} [options.unsafe = false] - Disable url escaping of
+     * key/value pairs. Useful for servers that use unsafe characters as delimiters
     */
     constructor(data, options = {}) {
-        if (options.unsafe) {
+        if (options.unsafe || (data instanceof UnsafeQueryString && options.unsafe !== false)) {
             return new UnsafeQueryString(data);
         }
 
