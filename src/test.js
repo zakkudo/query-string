@@ -416,6 +416,79 @@ describe('UnsafeQueryString', () => {
         );
     });
 
+    it('parsing a QueryString instance without explicitly setting unsafe', () => {
+        const original = new QueryString({
+            testString: 'test value',
+            testNumber: 1,
+            testBoolean: false,
+            testJSON: {'test': 'value'},
+            testUndefined: undefined,
+            testDuplicateKeys: ['test value 1', 'test value 2'],
+            testNull: null,
+        }, {unsafe: true});
+        const query = new QueryString(original);
+
+        original.monkeyPatch = 'test';
+
+        expect(String(query)).toEqual(
+            '?' +
+            'testString=test value&' +
+            'testNumber=1&' +
+            'testBoolean=false&' +
+            'testJSON={"test":"value"}&' +
+            'testDuplicateKeys=test value 1&' +
+            'testDuplicateKeys=test value 2&' +
+            'testNull=null'
+        );
+
+        expect(JSON.stringify(query)).toEqual(
+            '{' +
+                '"testString":"test value",' +
+                '"testNumber":1,' +
+                '"testBoolean":false,' +
+                '"testJSON":{"test":"value"},' +
+                '"testDuplicateKeys":["test value 1","test value 2"],' +
+                '"testNull":null' +
+            '}'
+        );
+    });
+
+    it('parsing a UnsafeQueryString can be coerced to safe', () => {
+        const original = new QueryString({
+            testString: 'test value',
+            testNumber: 1,
+            testBoolean: false,
+            testJSON: {'test': 'value'},
+            testUndefined: undefined,
+            testDuplicateKeys: ['test value 1', 'test value 2'],
+            testNull: null,
+        }, {unsafe: true});
+        const query = new QueryString(original, {unsafe: false});
+
+        original.monkeyPatch = 'test';
+
+        expect(String(query)).toEqual(
+            '?' +
+            'testString=test%20value&' +
+            'testNumber=1&' +
+            'testBoolean=false&' +
+            'testJSON=%7B%22test%22%3A%22value%22%7D&' +
+            'testDuplicateKeys=test%20value%201&' +
+            'testDuplicateKeys=test%20value%202&' +
+            'testNull=null'
+        );
+
+        expect(JSON.stringify(query)).toEqual(
+            '{' +
+                '"testString":"test value",' +
+                '"testNumber":1,' +
+                '"testBoolean":false,' +
+                '"testJSON":{"test":"value"},' +
+                '"testDuplicateKeys":["test value 1","test value 2"],' +
+                '"testNull":null' +
+            '}'
+        );
+    });
 
     it('allows you to update the query string after construction', () => {
         const query = new QueryString({
